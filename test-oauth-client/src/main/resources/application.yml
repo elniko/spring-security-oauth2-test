@@ -1,0 +1,15 @@
+server:
+  port: 8084
+
+security:
+  basic:
+    enabled: false                    # again no basic auth
+  oauth2:
+    client:
+      clientId: 9ThSY82u8gIVmPlVJ075tL1J0fka          # the client scope (the resource in the secured service)
+      clientSecret: 1otE7VkXQcANC_GZ1vFMFpMqqlYa   # copy this secret key from your keycloak admin console in the client configuration
+      accessTokenUri: https://localhost:9443/oauth2/token   # these uris are defined in the openId-connect protocol
+      userAuthorizationUri: https://localhost:9443/oauth2/authorize
+      pre-established-redirect-uri: http://localhost:8084/callback
+    #resource:
+      #userInfoUri: https://localhost:9443/oauth2/userinfo
