@@ -1,10 +1,10 @@
 package com.example.testoauthclient;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,14 +20,14 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+
+import static com.example.testoauthclient.TrustModifier.relaxHostChecking;
 
 @Configuration
 @EnableOAuth2Client
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MyConfig extends WebSecurityConfigurerAdapter {
     @Value("${security.oauth2.client.clientId}")
     private String clientId;
@@ -51,7 +51,15 @@ public class MyConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        super.configure(http);
+        http.authorizeRequests().anyRequest().authenticated()
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+       ;
+
+      //  super.configure(http);
     }
 
     @Bean
@@ -68,7 +76,7 @@ public class MyConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public OAuth2RestTemplate createRestTemplate(OAuth2ClientContext clientContext) throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+    public OAuth2RestTemplate createRestTemplate(OAuth2ClientContext clientContext)  {
         OAuth2RestTemplate template = new OAuth2RestTemplate(oAuth2ProtectedResourceDetails(), clientContext);
         AccessTokenProviderChain accessTokenProvider = new AccessTokenProviderChain(
                 Arrays.<AccessTokenProvider>asList(new AuthorizationCodeAccessTokenProvider())
@@ -77,18 +85,13 @@ public class MyConfig extends WebSecurityConfigurerAdapter {
             @Override
             protected void prepareConnection(HttpURLConnection connection, String httpMethod) throws IOException {
                 try {
-                    TrustModifier.relaxHostChecking(connection);
-                } catch (KeyManagementException e) {
-                    e.printStackTrace();
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                } catch (KeyStoreException e) {
+                    relaxHostChecking(connection);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 super.prepareConnection(connection, httpMethod);
             }
         });
-
         //accessTokenProvider.setClientTokenServices(oAuth2ClientTokenService);
         template.setAccessTokenProvider(accessTokenProvider);
 

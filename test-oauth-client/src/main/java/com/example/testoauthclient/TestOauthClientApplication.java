@@ -7,6 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TestOauthClientApplication {
 
     public static void main(String[] args) {
+
+        //Test.valueOf("big");
+
+
         SpringApplication.run(TestOauthClientApplication.class, args);
     }
 }

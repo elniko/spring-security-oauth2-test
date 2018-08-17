@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -36,11 +38,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .and()
-                .authorizeRequests().anyRequest().permitAll()
-                .and()
-                .csrf().disable();
+        http.authorizeRequests().anyRequest().permitAll().and()
+                .sessionManagement()
+
+                .maximumSessions(1)
+                .sessionRegistry(sessionRegistry());
+                //.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+
+                //.and()
+                //.csrf().disable();
     }
 
     @Override
@@ -49,6 +55,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         //defaultTokenServices.setTokenStore(tokenStore());
         config.tokenServices(tokenService());
     }
+
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
 
     @Bean
     public UserInfoTokenService tokenService() {
