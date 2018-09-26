@@ -35,6 +35,7 @@ public class CustomUserAuthenticationConverter implements UserAuthenticationConv
                 user.setExp(new Long(map.get("exp")+""));
                 user.setIat(new Long(map.get("iat")+""));
                 user.setClientId((String) map.get("client_id"));
+                user.setAccessToken((String)map.get("accessToken"));
                 authorities = user.getAuthorities();
                 principal = user;
             }

@@ -1,6 +1,7 @@
 package com.example.testresourceservice.config.custom;
 
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
@@ -32,9 +33,13 @@ public class UserInfoTokenService implements ResourceServerTokenServices {
     @Setter
     private AccessTokenConverter accessTokenConverter;
 
+    @Value("${resource.server.use.apimanager}")
+    Boolean apiManager;
+
 
     @Override
     public OAuth2Authentication loadAuthentication(String accessToken) {
+
         Map<String, Object> wsoIntrospectResponse = getWsoIntrospectResponse(accessToken);
 
         if(!wsoIntrospectResponse.containsKey("active") || wsoIntrospectResponse.get("active") != Boolean.TRUE) {
@@ -49,6 +54,7 @@ public class UserInfoTokenService implements ResourceServerTokenServices {
             throw new InvalidTokenException(accessToken);
         }
         res.put("sub", map.get("sub"));
+        res.put("accessToken", accessToken);
 
         return accessTokenConverter.extractAuthentication(res);
     }

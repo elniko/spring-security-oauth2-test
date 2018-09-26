@@ -1,0 +1,66 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Choose Debtor Account
+    </mat-panel-title>
+    <!--mat-panel-description>
+      This is a summary of the content
+    </mat-panel-description-->
+  </mat-expansion-panel-header>
+  <div>
+
+
+    <table mat-table [dataSource]="dataSource" color="accent">
+
+      <ng-container matColumnDef="iban">
+        <th mat-header-cell *matHeaderCellDef> Iban </th>
+        <td mat-cell *matCellDef="let element"> {{element.accountId.iban}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="bicFi">
+        <th mat-header-cell *matHeaderCellDef> BIC </th>
+        <td mat-cell *matCellDef="let element"> {{element.bicFi}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="cashAccountType">
+        <th mat-header-cell *matHeaderCellDef> cashAccountType </th>
+        <td mat-cell *matCellDef="let element"> {{element.cashAccountType}} </td>
+      </ng-container>
+      <ng-container matColumnDef="product">
+        <th mat-header-cell *matHeaderCellDef> Product </th>
+        <td mat-cell *matCellDef="let element"> {{element.product}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> Amount </th>
+        <td mat-cell *matCellDef="let element"> {{element.balances[0].balanceAmount.amount}} </td>
+      </ng-container>
+      <ng-container matColumnDef="currency">
+        <th mat-header-cell *matHeaderCellDef> Currency </th>
+        <td mat-cell *matCellDef="let element"> {{element.balances[0].balanceAmount.currency}} </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef> Details </th>
+        <td mat-cell *matCellDef="let element"> {{element.details}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="buttons">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>*matCellDef="let element"
+        <td  mat-cell *matCellDef="let element" (click)="showDetails(element.rawObject)"><button mat-button>Details</button></td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay" [ngClass]="{ 'selected': selection.isSelected(myRowData)}" (click)="select(myRowData)"></tr>
+    </table>
+
+
+
+
+  </div>
+</mat-expansion-panel>

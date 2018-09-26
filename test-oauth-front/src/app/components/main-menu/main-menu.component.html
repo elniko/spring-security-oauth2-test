@@ -1,0 +1,14 @@
+<mat-card>
+
+  <mat-chip-list>
+    <mat-chip selected="{{!isPayment()}}" routerLink="/accounts">Accounts</mat-chip>
+    <mat-chip selected="{{isPayment()}}"  routerLink="/payment">Payment</mat-chip>
+  </mat-chip-list>
+
+
+  <!--button mat-button [matMenuTriggerFor]="menu">Menu</button>
+  <mat-menu #menu="matMenu">
+    <button *ngIf="!isPayment()" mat-menu-item  routerLink="/payment">Payment</button>
+    <button *ngIf="isPayment()" mat-menu-item  routerLink="/accounts">Accounts</button>
+  </mat-menu-->
+</mat-card>

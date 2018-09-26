@@ -87,6 +87,38 @@ public interface PaymentRequestsApi {
         produces = { "application/hal+json; charset=utf-8", "application/json; charset=utf-8" },
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<HalPaymentTransferRequestCreation> paymentRequestsPost(@ApiParam(value = "Access token to be passed as a header", required = true) @RequestHeader(value = "Authorization", required = true) String authorization, @ApiParam(value = "ISO20022 based payment Initiation Request", required = true) @Valid @RequestBody PaymentRequestResource paymentRequest, @ApiParam(value = "http-signature of the request (cf. https://datatracker.ietf.org/doc/draft-cavage-http-signatures/) The keyId part of the header should be formatted as follows   keiId=\"SN=XXX,CA=YYYYYYYYYYYYYYYY\" where   \"XXX\" is the serial number, in hexadecimal without any prefix (like 0x), of the QSEAL certificate whose relevant private key was used for signing   \"YYYYYYYYYYYYYYYY\" is the the Issuer DN, full Distinguished Name of the Certification Authority having issued this certificate HTTP400 will be returned by the server in case of invalid or absent signature ", required = true) @RequestHeader(value = "Signature", required = true) String signature, @ApiParam(value = "Correlation header to be set in a request and retrieved in the relevant response ", required = true) @RequestHeader(value = "X-Request-ID", required = true) String xRequestID, @ApiParam(value = "IP address used by the PSU's terminal when connecting to the TPP") @RequestHeader(value = "PSU-IP-Address", required = false) String psUIPAddress, @ApiParam(value = "IP port used by the PSU's terminal when connecting to the TPP") @RequestHeader(value = "PSU-IP-Port", required = false) String psUIPPort, @ApiParam(value = "Http method for the most relevant PSUâ€™s terminal request to the TTP") @RequestHeader(value = "PSU-HTTP-Method", required = false) String psUHTTPMethod, @ApiParam(value = "Timestamp of the most relevant PSUâ€™s terminal request to the TTP") @RequestHeader(value = "PSU-Date", required = false) String psUDate, @ApiParam(value = "Geographical location of the PSU as provided by the PSU mobile terminal if any to the TPP") @RequestHeader(value = "PSU-GEO-Location", required = false) String psUGEOLocation, @ApiParam(value = "\"User-Agent\" header field sent by the PSU terminal when connecting to the TPP ") @RequestHeader(value = "PSU-User-Agent", required = false) String psUUserAgent, @ApiParam(value = "\"Referer\" header field sent by the PSU terminal when connecting to the TPP. Notice that an initial typo in RFC 1945 specifies that \"referer\" (incorrect spelling) is to be used. The correct spelling \"referrer\" can be used but might not be understood. ") @RequestHeader(value = "PSU-Referer", required = false) String psUReferer, @ApiParam(value = "\"Accept\" header field sent by the PSU terminal when connecting to the TPP ") @RequestHeader(value = "PSU-Accept", required = false) String psUAccept, @ApiParam(value = "\"Accept-Charset\" header field sent by the PSU terminal when connecting to the TPP ") @RequestHeader(value = "PSU-Accept-Charset", required = false) String psUAcceptCharset, @ApiParam(value = "\"Accept-Encoding\" header field sent by the PSU terminal when connecting to the TPP ") @RequestHeader(value = "PSU-Accept-Encoding", required = false) String psUAcceptEncoding, @ApiParam(value = "\"Accept-Language\" header field sent by the PSU terminal when connecting to the TPP ") @RequestHeader(value = "PSU-Accept-Language", required = false) String psUAcceptLanguage, @ApiParam(value = "Digest of the body") @RequestHeader(value = "Digest", required = false) String digest);
+    ResponseEntity<HalPaymentTransferRequestCreation> paymentRequestsPost(
+            @ApiParam(value = "Access token to be passed as a header", required = true)
+                @RequestHeader(value = "Authorization", required = true) String authorization,
+            @ApiParam(value = "ISO20022 based payment Initiation Request", required = true)
+                @Valid @RequestBody PaymentRequestResource paymentRequest,
+            @ApiParam(value = "http-signature of the request (cf. https://datatracker.ietf.org/doc/draft-cavage-http-signatures/) The keyId part of the header should be formatted as follows   keiId=\"SN=XXX,CA=YYYYYYYYYYYYYYYY\" where   \"XXX\" is the serial number, in hexadecimal without any prefix (like 0x), of the QSEAL certificate whose relevant private key was used for signing   \"YYYYYYYYYYYYYYYY\" is the the Issuer DN, full Distinguished Name of the Certification Authority having issued this certificate HTTP400 will be returned by the server in case of invalid or absent signature ", required = true)
+                @RequestHeader(value = "Signature", required = true) String signature,
+            @ApiParam(value = "Correlation header to be set in a request and retrieved in the relevant response ", required = true)
+                @RequestHeader(value = "X-Request-ID", required = true) String xRequestID,
+            @ApiParam(value = "IP address used by the PSU's terminal when connecting to the TPP")
+                @RequestHeader(value = "PSU-IP-Address", required = false) String psUIPAddress,
+            @ApiParam(value = "IP port used by the PSU's terminal when connecting to the TPP")
+                @RequestHeader(value = "PSU-IP-Port", required = false) String psUIPPort,
+            @ApiParam(value = "Http method for the most relevant PSUâ€™s terminal request to the TTP")
+                @RequestHeader(value = "PSU-HTTP-Method", required = false) String psUHTTPMethod,
+            @ApiParam(value = "Timestamp of the most relevant PSUâ€™s terminal request to the TTP")
+                @RequestHeader(value = "PSU-Date", required = false) String psUDate,
+            @ApiParam(value = "Geographical location of the PSU as provided by the PSU mobile terminal if any to the TPP")
+                @RequestHeader(value = "PSU-GEO-Location", required = false) String psUGEOLocation,
+            @ApiParam(value = "\"User-Agent\" header field sent by the PSU terminal when connecting to the TPP ")
+                @RequestHeader(value = "PSU-User-Agent", required = false) String psUUserAgent,
+            @ApiParam(value = "\"Referer\" header field sent by the PSU terminal when connecting to the TPP. Notice that an initial typo in RFC 1945 specifies that \"referer\" (incorrect spelling) is to be used. The correct spelling \"referrer\" can be used but might not be understood. ")
+                @RequestHeader(value = "PSU-Referer", required = false) String psUReferer,
+            @ApiParam(value = "\"Accept\" header field sent by the PSU terminal when connecting to the TPP ")
+                @RequestHeader(value = "PSU-Accept", required = false) String psUAccept,
+            @ApiParam(value = "\"Accept-Charset\" header field sent by the PSU terminal when connecting to the TPP ")
+                @RequestHeader(value = "PSU-Accept-Charset", required = false) String psUAcceptCharset,
+            @ApiParam(value = "\"Accept-Encoding\" header field sent by the PSU terminal when connecting to the TPP ")
+                @RequestHeader(value = "PSU-Accept-Encoding", required = false) String psUAcceptEncoding,
+            @ApiParam(value = "\"Accept-Language\" header field sent by the PSU terminal when connecting to the TPP ")
+                @RequestHeader(value = "PSU-Accept-Language", required = false) String psUAcceptLanguage,
+            @ApiParam(value = "Digest of the body")
+                @RequestHeader(value = "Digest", required = false) String digest);
 
 }

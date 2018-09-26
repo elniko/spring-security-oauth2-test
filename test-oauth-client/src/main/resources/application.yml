@@ -6,10 +6,12 @@ security:
     enabled: false                    # again no basic auth
   oauth2:
     client:
-      clientId: Dvk24w_3H_yyMKtngwgBvaT3rmka #9ThSY82u8gIVmPlVJ075tL1J0fka          # the client scope (the resource in the secured service)
-      clientSecret: G1XWKWFwoojLxRMSu_B9mnTUK70a #1otE7VkXQcANC_GZ1vFMFpMqqlYa   # copy this secret key from your keycloak admin console in the client configuration
-      accessTokenUri: https://localhost:9443/oauth2/token   # these uris are defined in the openId-connect protocol
-      userAuthorizationUri: https://localhost:9443/oauth2/authorize
-      pre-established-redirect-uri: http://localhost:8084/callback
+      clientId: woeflPJTVvKBry_sn9tw9D_R4fEa #Dvk24w_3H_yyMKtngwgBvaT3rmka  #          # the client scope (the resource in the secured service)
+      clientSecret: 45rEG900eLQPpffvLpUbsQKABeoa #G1XWKWFwoojLxRMSu_B9mnTUK70a  #   # copy this secret key from your keycloak admin console in the client configuration
+      #clientId: Dvk24w_3H_yyMKtngwgBvaT3rmka #          # the client scope (the resource in the secured service)
+      #clientSecret: G1XWKWFwoojLxRMSu_B9mnTUK70a  #   # copy this secret key from your keycloak admin console in
+      accessTokenUri: https://localhost:9444/oauth2/token   # these uris are defined in the openId-connect protocol
+      userAuthorizationUri: https://localhost:9444/oauth2/authorize
+      pre-established-redirect-uri: http://localhost:8084/callback #http://localhost:8084/callback
     #resource:
       #userInfoUri: https://localhost:9443/oauth2/userinfo

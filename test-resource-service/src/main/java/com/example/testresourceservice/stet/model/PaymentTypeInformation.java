@@ -38,7 +38,7 @@ public class PaymentTypeInformation   {
   **/
   @ApiModelProperty(value = "")
 
-  @Valid
+  //@Valid
 
   public PriorityCode getInstructionPriority() {
     return instructionPriority;
@@ -60,7 +60,7 @@ public class PaymentTypeInformation   {
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
-  @Valid
+  //@Valid
 
   public ServiceLevelCode getServiceLevel() {
     return serviceLevel;
@@ -81,7 +81,7 @@ public class PaymentTypeInformation   {
   **/
   @ApiModelProperty(value = "")
 
-  @Valid
+  //@Valid
 
   public LocalInstrumentCode getLocalInstrument() {
     return localInstrument;
@@ -102,7 +102,7 @@ public class PaymentTypeInformation   {
   **/
   @ApiModelProperty(value = "")
 
-  @Valid
+  //@Valid
 
   public CategoryPurposeCode getCategoryPurpose() {
     return categoryPurpose;

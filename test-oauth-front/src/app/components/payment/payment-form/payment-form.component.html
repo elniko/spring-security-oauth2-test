@@ -1,0 +1,38 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Specify Payment Amount
+    </mat-panel-title>
+    <!--mat-panel-description>
+      This is a summary of the content
+    </mat-panel-description-->
+  </mat-expansion-panel-header>
+
+  <form>
+    <p>
+      <mat-form-field>
+        <input matInput   placeholder="Amount"  [formControl]="amountControl">
+        <mat-error *ngIf="amountControl.hasError('required')">
+          <strong>required</strong>
+        </mat-error>
+     </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-select placeholder="Currency" [formControl]="currencyControl">
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let currency of currencies" [value]="currency.value">
+            {{currency.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="amountControl.hasError('required')">
+          <strong>required</strong>
+        </mat-error>
+
+      </mat-form-field>
+    </p>
+    <button mat-raised-button (click) = "pay()" color="primary" >Pay</button>
+  </form>
+
+
+</mat-expansion-panel>

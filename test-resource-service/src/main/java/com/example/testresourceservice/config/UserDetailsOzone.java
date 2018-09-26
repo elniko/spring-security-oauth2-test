@@ -1,6 +1,7 @@
 package com.example.testresourceservice.config;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Data
+@EqualsAndHashCode(of = "sub")
 public class UserDetailsOzone implements UserDetails {
 
     @Id
@@ -27,6 +29,11 @@ public class UserDetailsOzone implements UserDetails {
     private Long iat;
     @Transient
     private String clientId;
+    @Transient
+    private String accessToken;
+
+    @Transient
+    private int paymentCount = 0;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
@@ -67,5 +74,9 @@ public class UserDetailsOzone implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void incCount() {
+        paymentCount ++;
     }
 }

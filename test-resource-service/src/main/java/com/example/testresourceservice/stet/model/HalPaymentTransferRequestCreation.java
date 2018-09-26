@@ -31,7 +31,7 @@ public class HalPaymentTransferRequestCreation   {
   **/
   @ApiModelProperty(value = "")
 
-  @Valid
+  //@Valid
 
   public AppliedScaApproach getAppliedScaApproach() {
     return appliedScaApproach;

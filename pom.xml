@@ -21,6 +21,8 @@
     <modules>
         <module>test-resource-service</module>
         <module>test-oauth-client</module>
+        <module>test-oauth-front</module>
+        <module>CusttomUserStore</module>
     </modules>
 
     <properties>

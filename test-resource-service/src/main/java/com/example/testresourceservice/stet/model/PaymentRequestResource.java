@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +18,7 @@ import java.util.Objects;
 @ApiModel(description = "ISO20022: The PaymentRequestResource message is sent by the Creditor sending party to the Debtor receiving party, directly or through agents. It is used by a Creditor to request movement of funds from the debtor account to a creditor. ")
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-08-13T16:28:50.109+02:00")
 
-public class PaymentRequestResource   {
+    public class PaymentRequestResource   {
   @JsonProperty("resourceId")
   private String resourceId = null;
 
@@ -25,7 +26,7 @@ public class PaymentRequestResource   {
   private String paymentInformationId = null;
 
   @JsonProperty("creationDateTime")
-  private DateTime creationDateTime = null;
+  private LocalDateTime creationDateTime = null;
 
   @JsonProperty("numberOfTransactions")
   private Integer numberOfTransactions = null;
@@ -116,7 +117,7 @@ public class PaymentRequestResource   {
     this.paymentInformationId = paymentInformationId;
   }
 
-  public PaymentRequestResource creationDateTime(DateTime creationDateTime) {
+  public PaymentRequestResource creationDateTime(LocalDateTime creationDateTime) {
     this.creationDateTime = creationDateTime;
     return this;
   }
@@ -128,13 +129,13 @@ public class PaymentRequestResource   {
   @ApiModelProperty(required = true, value = "ISO20022: Date and time at which a (group of) payment instruction(s) was created by the instructing party. ")
   @NotNull
 
-  @Valid
+  //@Valid
 
-  public DateTime getCreationDateTime() {
+  public LocalDateTime getCreationDateTime() {
     return creationDateTime;
   }
 
-  public void setCreationDateTime(DateTime creationDateTime) {
+  public void setCreationDateTime(LocalDateTime creationDateTime) {
     this.creationDateTime = creationDateTime;
   }
 
@@ -365,7 +366,7 @@ public class PaymentRequestResource   {
   **/
   @ApiModelProperty(value = "")
 
-  @Valid
+  //@Valid
 
   public PurposeCode getPurpose() {
     return purpose;
@@ -386,7 +387,7 @@ public class PaymentRequestResource   {
   **/
   @ApiModelProperty(value = "- ISO2002: Specifies which party/parties will bear the charges associated with the processing of the payment transaction. - API: Set to \"SLEV\" or omitted ")
 
-  @Valid
+  //@Valid
 
   public ChargeBearerCode getChargeBearer() {
     return chargeBearer;
@@ -407,7 +408,7 @@ public class PaymentRequestResource   {
   **/
   @ApiModelProperty(value = "")
 
-  @Valid
+  //@Valid
 
   public PaymentTransferInformationStatusCode getPaymentInformationStatus() {
     return paymentInformationStatus;
@@ -428,7 +429,7 @@ public class PaymentRequestResource   {
   **/
   @ApiModelProperty(value = "")
 
-  @Valid
+  //@Valid
 
   public StatusReasonInformation getStatusReasonInformation() {
     return statusReasonInformation;

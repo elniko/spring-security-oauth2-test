@@ -1,12 +1,16 @@
 package com.example.testresourceservice.stet.api;
 
+import com.example.testresourceservice.config.UserDetailsOzone;
+import com.example.testresourceservice.config.config.TokenHolder;
 import com.example.testresourceservice.stet.model.HalPaymentRequest;
 import com.example.testresourceservice.stet.model.HalPaymentTransferRequestCreation;
 import com.example.testresourceservice.stet.model.PaymentRequestResource;
 import com.example.testresourceservice.stet.model.PaymentTransferRequestConfirmationResource;
 import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +23,8 @@ import javax.validation.Valid;
 @Controller
 public class PaymentRequestsApiController implements PaymentRequestsApi {
 
-
+    @Autowired
+    TokenHolder tokenHolder;
 
     public ResponseEntity<HalPaymentRequest> paymentRequestConfirmationPost(@ApiParam(value = "Access token to be passed as a header" ,required=true) @RequestHeader(value="Authorization", required=true) String authorization,
                                                                             @ApiParam(value = "Identification of the Payment Request Resource",required=true ) @PathVariable("paymentRequestResourceId") String paymentRequestResourceId,
@@ -63,7 +68,7 @@ public class PaymentRequestsApiController implements PaymentRequestsApi {
     }
 
     public ResponseEntity<HalPaymentTransferRequestCreation> paymentRequestsPost(@ApiParam(value = "Access token to be passed as a header" ,required=true) @RequestHeader(value="Authorization", required=true) String authorization,
-                                                                                 @ApiParam(value = "ISO20022 based payment Initiation Request" ,required=true )  @Valid @RequestBody PaymentRequestResource paymentRequest,
+                                                                                 @ApiParam(value = "ISO20022 based payment Initiation Request" ,required=true )  /*@Valid*/ @RequestBody PaymentRequestResource paymentRequest,
                                                                                  @ApiParam(value = "http-signature of the request (cf. https://datatracker.ietf.org/doc/draft-cavage-http-signatures/) The keyId part of the header should be formatted as follows   keiId=\"SN=XXX,CA=YYYYYYYYYYYYYYYY\" where   \"XXX\" is the serial number, in hexadecimal without any prefix (like 0x), of the QSEAL certificate whose relevant private key was used for signing   \"YYYYYYYYYYYYYYYY\" is the the Issuer DN, full Distinguished Name of the Certification Authority having issued this certificate HTTP400 will be returned by the server in case of invalid or absent signature " ,required=true) @RequestHeader(value="Signature", required=true) String signature,
                                                                                  @ApiParam(value = "Correlation header to be set in a request and retrieved in the relevant response " ,required=true) @RequestHeader(value="X-Request-ID", required=true) String xRequestID,
                                                                                  @ApiParam(value = "IP address used by the PSU's terminal when connecting to the TPP" ) @RequestHeader(value="PSU-IP-Address", required=false) String psUIPAddress,
@@ -79,6 +84,9 @@ public class PaymentRequestsApiController implements PaymentRequestsApi {
                                                                                  @ApiParam(value = "\"Accept-Language\" header field sent by the PSU terminal when connecting to the TPP " ) @RequestHeader(value="PSU-Accept-Language", required=false) String psUAcceptLanguage,
                                                                                  @ApiParam(value = "Digest of the body" ) @RequestHeader(value="Digest", required=false) String digest) {
         // do some magic!
+
+        UserDetailsOzone user = (UserDetailsOzone) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        tokenHolder.setToken(user.getSub(), user.getAccessToken());
         return new ResponseEntity<HalPaymentTransferRequestCreation>(HttpStatus.OK);
     }
 

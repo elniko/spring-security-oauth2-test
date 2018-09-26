@@ -102,7 +102,7 @@ public class SupplementaryData   {
   **/
   @ApiModelProperty(value = "")
 
-  @Valid
+  //@Valid
 
   public AppliedScaApproach getAppliedScaApproach() {
     return appliedScaApproach;

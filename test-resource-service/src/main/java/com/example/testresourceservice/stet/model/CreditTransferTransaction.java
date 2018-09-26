@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -21,7 +22,7 @@ public class CreditTransferTransaction   {
   private PaymentIdentification paymentId = null;
 
   @JsonProperty("requestedExecutionDate")
-  private DateTime requestedExecutionDate = null;
+  private LocalDateTime requestedExecutionDate = null;
 
   @JsonProperty("instructedAmount")
   private AmountType instructedAmount = null;
@@ -60,7 +61,7 @@ public class CreditTransferTransaction   {
     this.paymentId = paymentId;
   }
 
-  public CreditTransferTransaction requestedExecutionDate(DateTime requestedExecutionDate) {
+  public CreditTransferTransaction requestedExecutionDate(LocalDateTime requestedExecutionDate) {
     this.requestedExecutionDate = requestedExecutionDate;
     return this;
   }
@@ -74,11 +75,11 @@ public class CreditTransferTransaction   {
 
   @Valid
 
-  public DateTime getRequestedExecutionDate() {
+  public LocalDateTime getRequestedExecutionDate() {
     return requestedExecutionDate;
   }
 
-  public void setRequestedExecutionDate(DateTime requestedExecutionDate) {
+  public void setRequestedExecutionDate(LocalDateTime requestedExecutionDate) {
     this.requestedExecutionDate = requestedExecutionDate;
   }
 
@@ -157,7 +158,7 @@ public class CreditTransferTransaction   {
   **/
   @ApiModelProperty(value = "")
 
-  @Valid
+  //@Valid
 
   public TransactionIndividualStatusCode getTransactionStatus() {
     return transactionStatus;
@@ -178,7 +179,7 @@ public class CreditTransferTransaction   {
   **/
   @ApiModelProperty(value = "")
 
-  @Valid
+  //@Valid
 
   public StatusReasonInformation getStatusReasonInformation() {
     return statusReasonInformation;

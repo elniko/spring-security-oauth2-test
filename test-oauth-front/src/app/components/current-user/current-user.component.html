@@ -1,0 +1,16 @@
+<mat-toolbar color="primary"  >
+  <mat-toolbar-row *ngIf="userService.getUser()">
+    <h2>Hello {{userService.getUser().firstName}} {{userService.getUser().lastName}}</h2>
+    <h1>Welcome to PSD2 Demo!</h1>
+    <button   mat-button (click) = "logout()" color="accent"><h3>Logout</h3>  </button>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row *ngIf="!userService.getUser()">
+    <h2>You are not logged in</h2>
+    <button mat-button (click)="login()" color="accent"><h3>Login</h3></button>
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
+
+

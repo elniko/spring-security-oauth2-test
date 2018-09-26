@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-card-content>
+
+    <div *ngIf="userService.getUser()">
+      <app-payment-debtor-accounts></app-payment-debtor-accounts>
+      <app-payment-creditor-list></app-payment-creditor-list>
+      <app-payment-form></app-payment-form>
+    </div>
+    <!--mat-divider></mat-divider-->
+
+  </mat-card-content>
+</mat-card>

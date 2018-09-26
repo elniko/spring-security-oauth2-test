@@ -1,0 +1,12 @@
+table {
+  width: 100%;
+}
+
+tr.selected {
+  background: #673ab7;
+
+}
+
+tr.selected td {
+  color: white;
+}
