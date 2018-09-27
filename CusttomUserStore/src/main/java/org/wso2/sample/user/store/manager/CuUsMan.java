@@ -413,6 +413,21 @@ public class CuUsMan extends JDBCUserStoreManager {
 
     }
 
+    @Override
+    protected String getMyDomainName() {
+
+        log.warn("Domain name " +super.getMyDomainName());
+
+
+        return super.getMyDomainName();
+    }
+
+    @Override
+    protected String[] doGetInternalRoleListOfUser(String userName, String filter) throws org.wso2.carbon.user.core.UserStoreException {
+        log.warn("ROLE " + super.doGetInternalRoleListOfUser(userName, filter)[0]);
+        return super.doGetInternalRoleListOfUser(userName, filter);
+    }
+
 //    @Override
 //    public int getUserId(String username) throws org.wso2.carbon.user.core.UserStoreException {
 //        return 3;

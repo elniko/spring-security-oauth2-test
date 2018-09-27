@@ -15,7 +15,7 @@ public class CustomUserStoreMgtDSComponent {
 
     protected void activate(ComponentContext ctxt) throws UserStoreException {
 
-        CuUsMan customUserStoreManager = new CuUsMan();
+        CustomUserManager customUserStoreManager = new CustomUserManager();
         ctxt.getBundleContext().registerService(CustomUserManager.class.getName(), customUserStoreManager, null);
         log.info("CustomUserStoreManager bundle activated successfully..");
     }

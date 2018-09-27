@@ -4,9 +4,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.user.api.Properties;
 import org.wso2.carbon.user.api.RealmConfiguration;
+import org.wso2.carbon.user.core.UserRealm;
 import org.wso2.carbon.user.core.UserStoreException;
+import org.wso2.carbon.user.core.claim.ClaimManager;
 import org.wso2.carbon.user.core.common.AbstractUserStoreManager;
 import org.wso2.carbon.user.core.common.RoleContext;
+import org.wso2.carbon.user.core.profile.ProfileConfigurationManager;
 import org.wso2.carbon.user.core.tenant.Tenant;
 
 import java.util.Map;
@@ -14,8 +17,57 @@ import java.util.Map;
 public class CustomUserManager extends AbstractUserStoreManager {
     private static Log log = LogFactory.getLog(CustomUserManager.class);
 
+
+
+
+
+
+
+    public CustomUserManager() {}
     public CustomUserManager(RealmConfiguration realmConfig, Map tenantId) throws UserStoreException {
+
             log.warn("Constr");
+    }
+
+    @Override
+    public String[] getRoleListOfUser(String userName) throws UserStoreException {
+        return new String[]{"Internal/publisher"};
+    }
+
+    @Override
+    public boolean isExistingRole(String roleName) throws UserStoreException {
+        log.warn("isExistingRole");
+        return true;
+    }
+
+    @Override
+    public boolean isExistingUser(String userName) throws UserStoreException {
+        log.warn("isExistingUser " + userName);
+        return true;
+    }
+
+    public CustomUserManager(RealmConfiguration realmConfig, Map<String, Object> properties, ClaimManager
+            claimManager, ProfileConfigurationManager profileManager, UserRealm realm, Integer tenantId)
+            throws org.wso2.carbon.user.api.UserStoreException {
+        //super(realmConfig, tenantId);
+        this.tenantId = tenantId;
+        this.realmConfig = realmConfig;
+        this.userRealm = realm;
+
+
+
+        log.warn("Constructor lol");
+
+    }
+
+
+    @Override
+    protected String getMyDomainName() {
+
+        log.warn("Domain name " );
+
+
+        return "PRIMARY";
     }
 
 
@@ -29,7 +81,7 @@ public class CustomUserManager extends AbstractUserStoreManager {
     @Override
     protected boolean doCheckExistingRole(String s) throws UserStoreException {
         log.warn("check existing role");
-        return false;
+        return true;
     }
 
     @Override
@@ -47,7 +99,8 @@ public class CustomUserManager extends AbstractUserStoreManager {
     @Override
     protected String[] getUserListFromProperties(String s, String s1, String s2) throws UserStoreException {
         log.warn("get user list from prop");
-        return new String[0];
+        String[] ll ={"admin"};
+        return ll;
     }
 
     @Override
@@ -152,6 +205,12 @@ public class CustomUserManager extends AbstractUserStoreManager {
     }
 
     @Override
+    protected boolean authenticate(String userName, Object credential, boolean domainProvided) throws UserStoreException {
+        log.warn("authenticate");
+        return true;
+    }
+
+    @Override
     public boolean doCheckIsUserInRole(String s, String s1) throws UserStoreException {
         log.warn("check is user in role");
         return false;
@@ -246,6 +305,6 @@ public class CustomUserManager extends AbstractUserStoreManager {
     @Override
     public RealmConfiguration getRealmConfiguration() {
         log.warn("get realm conf");
-        return null;
+        return this.realmConfig;
     }
 }
